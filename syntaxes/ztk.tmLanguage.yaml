@@ -1,0 +1,74 @@
+fileTypes:
+  - ztk
+name: ztk
+patterns:
+  - include: '#comments'
+  - include: '#tables'
+  - include: '#keys'
+
+repository:
+  comments:
+    comment: Comments
+    match: '\s*((%).*)$'
+    captures:
+      '1':
+        name: comment.line.percentage.ztk
+      '2':
+        name: punctuation.definition.comment.ztk
+
+  dataTypes:
+    patterns:
+      - include: '#string'
+      - include: '#float'
+      - include: '#integer'
+  string:
+    patterns:
+      -
+        comment: 'basic string line'
+        match: '"(?:[^"\\]|\\.)*"'
+        name: string.quoted.single.basic.line.ztk
+      -
+        comment: 'basic string line'
+        match: '''(?:[^''\\]|\\.)*'''
+        name: string.quoted.single.literal.line.ztk
+  float:
+    comment: 'Float, decimal and exponential representation'
+    match: '(?<!\w)([\+\-]?(0|([1-9](([0-9]|_[0-9])+)?))(?:(?:\.(0|([1-9](([0-9]|_[0-9])+)?)))?[eE][\+\-]?[1-9]_?[0-9]*|(?:\.[0-9_]*)))(?!\w)'
+    captures:
+      '1':
+        name: constant.numeric.float.ztk
+  integer:
+    comment: 'Integer (with and without + and - prefixes)'
+    match: '(?<!\w)((?:[\+\-]?(0|([1-9](([0-9]|_[0-9])+)?))))(?!\w)'
+    captures:
+      '1':
+        name: constant.numeric.integer.ztk
+
+  keys:
+    comment: Key-value-pairs
+    begin: '[\s,;\|\(\)\{\}]*([^\s,;\|\(\)\{\}]*|".*"|''.*'')[\s,;\|\(\)\{\}]*(:)'
+    beginCaptures:
+      '1': 
+        name: keyword.key.ztk
+      '2': 
+        name: punctuation.definition.keyValuePair.ztk
+    end: '((?=\[)|(?=[^\s,;\|\(\)\{\}]*[\s,;\|\(\)\{\}]*:))'
+    patterns:
+      - include: '#comments'
+      - include: '#dataTypes'
+  
+  tables:
+    match: '(?:^|[\s,;\|\(\)\{\}]+)[\s,;\|\(\)\{\}]*(\[)([^\[\]]*)(\])'
+    captures:
+      '1': 
+        name: punctuation.definition.table.ztk
+      '2':
+        patterns:
+          -
+            match: '[^\s,;\|\(\)\{\}]*'
+            name: entity.other.attribute-name.table.ztk
+      '3': 
+        name: punctuation.definition.table.ztk
+    name: meta.tag.table.ztk
+                
+scopeName: source.ztk

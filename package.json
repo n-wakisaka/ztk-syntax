@@ -1,0 +1,42 @@
+{
+  "name": "ztk-syntax",
+  "displayName": "ztk-syntax",
+  "description": "syntax highlighting for ztk format",
+  "publisher": "NaokiWakisaka",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/n-wakisaka/ztk-syntax.git"
+  },
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.46.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "ztk",
+        "aliases": [
+          "ztk",
+          ""
+        ],
+        "extensions": [
+          ".ztk"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "ztk",
+        "scopeName": "source.ztk",
+        "path": "./syntaxes/ztk.tmLanguage.json"
+      }
+    ]
+  },
+  "devDependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
